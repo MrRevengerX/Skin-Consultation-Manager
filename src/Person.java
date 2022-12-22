@@ -1,8 +1,11 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
-public class Person {
+public class Person implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private String name;
     private String surname;
     private LocalDate dob;

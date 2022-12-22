@@ -1,10 +1,14 @@
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class DoctorList {
+public class DoctorList implements Serializable {
+    private static final long serialVersionUID = 1L;
     private HashMap<Integer,Doctor> DoctorList=new HashMap<>();
 
 
-
+    public HashMap<Integer, Doctor> getDoctorList() {
+        return DoctorList;
+    }
 
     public void addDoctor(int mLicense , Doctor doctor){
         if(this.DoctorList.size()<=10){
@@ -24,5 +28,10 @@ public class DoctorList {
         return "DoctorList{" +
                 "DoctorList=" + DoctorList +
                 '}';
+    }
+
+    public void removeDoctor(int mLicense){
+
+        this.DoctorList.remove(mLicense);
     }
 }

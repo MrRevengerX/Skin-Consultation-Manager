@@ -1,9 +1,12 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Doctor extends Person{
+public class Doctor extends Person implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private int mLicense;
     private String speciali;
 
