@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="783d4334-fd02-4958-8c91-b5ca48e687d0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jdatepicker_1_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GuiSkinConsultationHome.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SkinConsultationHome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WestminsterSkinConsultationManager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/WestminsterSkinConsultationManager.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Consultation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Consultation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GuiSkinConsultationHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GuiSkinConsultationHome.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Patient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SkinConsultationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SkinConsultationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/WestminsterSkinConsultationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WestminsterSkinConsultationManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,31 +38,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/jdatepicker-1.3.4.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/jdatepicker-1.3.4.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.WestminsterSkinConsultationManager">
+    <configuration name="GuiSkinConsultationHome" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GuiSkinConsultationHome" />
+      <module name="WestminsterSkinConsultationManager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WestminsterSkinConsultationManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="WestminsterSkinConsultationManager" />
       <module name="WestminsterSkinConsultationManager" />
@@ -78,6 +80,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.WestminsterSkinConsultationManager" />
+        <item itemvalue="Application.GuiSkinConsultationHome" />
       </list>
     </recent_temporary>
   </component>
@@ -98,6 +101,9 @@
       <workItem from="1671821658966" duration="110000" />
       <workItem from="1671821790708" duration="8262000" />
       <workItem from="1671880041495" duration="10356000" />
+      <workItem from="1671967543367" duration="11665000" />
+      <workItem from="1672002714564" duration="2213000" />
+      <workItem from="1672005453545" duration="4911000" />
     </task>
     <servers />
   </component>
@@ -106,5 +112,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ClassCastException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

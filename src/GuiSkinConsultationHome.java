@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -17,7 +18,6 @@ import javax.swing.JButton;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -30,6 +30,8 @@ public class GuiSkinConsultationHome {
 
 
     static WestminsterSkinConsultationManager manager = new WestminsterSkinConsultationManager();
+
+    static HashMap<String, Patient> pastPatients = new HashMap<>();
 
     public static void main(String[] args) {
         homeFrame = new JFrame("Skin Consultation Home"); // Create a new JFrame
@@ -173,7 +175,6 @@ public class GuiSkinConsultationHome {
 // Add the JScrollPane to your GUI
         doctorListFrame.add(scrollPane);
         doctorListFrame.add(sortButton);
-
         doctorListFrame.setVisible(true);
     }
 
@@ -181,7 +182,7 @@ public class GuiSkinConsultationHome {
         DoctorList doctorList = manager.getDoctorList();
         // create the book consultation window
         selectDoctorFrame = new JFrame("Select Doctor");
-        selectDoctorFrame.setSize(800, 768);
+        selectDoctorFrame.setSize(800, 650);
         selectDoctorFrame.setLocationRelativeTo(null); // center the frame
         selectDoctorFrame.setResizable(false);
         selectDoctorFrame.setLayout(null);
@@ -212,19 +213,19 @@ public class GuiSkinConsultationHome {
 
         //show doctors other details in a lable after selecting a doctor
 
-        JLabel doctorNameLabel = new JLabel();
+        JLabel doctorNameLabel = new JLabel("Doctor Name : ");
         doctorNameLabel.setBounds(275, 170, 400, 50);
         doctorNameLabel.setFont(new Font("Montserrat", Font.BOLD, 20));
         doctorNameLabel.setForeground(new Color(0x000000));
         selectDoctorFrame.add(doctorNameLabel);
 
-        JLabel doctorSpecializationLabel = new JLabel();
+        JLabel doctorSpecializationLabel = new JLabel("Specialization : ");
         doctorSpecializationLabel.setBounds(275, 200, 400, 50);
         doctorSpecializationLabel.setFont(new Font("Montserrat", Font.BOLD, 20));
         doctorSpecializationLabel.setForeground(new Color(0x000000));
         selectDoctorFrame.add(doctorSpecializationLabel);
 
-        JLabel doctorMobileLabel = new JLabel();
+        JLabel doctorMobileLabel = new JLabel("Mobile No : ");
         doctorMobileLabel.setBounds(275, 230, 400, 50);
         doctorMobileLabel.setFont(new Font("Montserrat", Font.BOLD, 20));
         doctorMobileLabel.setForeground(new Color(0x000000));
@@ -237,7 +238,7 @@ public class GuiSkinConsultationHome {
                 String selectedDoctor = (String) doctorComboBox.getSelectedItem();
                 Doctor doctor = doctorList.getDoctorList().get(Integer.parseInt(selectedDoctor));
                 String doctorDetails = doctor.getName() + " " + doctor.getSurname();
-                doctorNameLabel.setText(doctorDetails);
+                doctorNameLabel.setText("Doctor Name : "+doctorDetails);
                 doctorSpecializationLabel.setText("Specialization : " + doctor.getSpeciali());
                 doctorMobileLabel.setText("Mobile No : " + doctor.getMobileNum());
             }
@@ -347,10 +348,10 @@ public class GuiSkinConsultationHome {
         // create the spinner model
         SpinnerNumberModel numOfHrSpinnerModel = new SpinnerNumberModel(1, 1, 3, 1);
 
-// create the spinner
+        // create the spinner
         JSpinner numOfHrSpinner = new JSpinner(numOfHrSpinnerModel);
 
-// add a change listener to the spinner
+        // add a change listener to the spinner
         numOfHrSpinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -375,6 +376,7 @@ public class GuiSkinConsultationHome {
                 }
             }
         });
+
         numOfHrSpinner.setBounds(400, 440, 100, 30);
         selectDoctorFrame.add(numOfHrSpinner);
 
@@ -384,14 +386,13 @@ public class GuiSkinConsultationHome {
 
         selectDoctorFrame.add(submitButton);
 
-        JTextArea textArea = new JTextArea();
-
         //add action listener for submit button
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 Date selectedDate = (Date) datePicker.getModel().getValue();
+                System.out.println(selectedDate);
 
 // convert the selected date to a LocalDate object
 
@@ -399,24 +400,299 @@ public class GuiSkinConsultationHome {
                 if (doctorComboBox.getSelectedIndex() == (-1) || selectedDate == null) {
                     JOptionPane.showMessageDialog(null, "Please enter all the details.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
+
                     //get the user input
                     String selectedDoctor = (String) doctorComboBox.getSelectedItem();
                     Doctor doctor = doctorList.getDoctorList().get(Integer.parseInt(selectedDoctor));
                     String userInputDoctor = doctor.getName() + " " + doctor.getSurname();
                     String userInputDate = datePicker.getJFormattedTextField().getText();
+
+
+                    // create a DateTimeFormatter object using the pattern
+                    DateTimeFormatter appointmentDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    var temporal = appointmentDateFormatter.parse(userInputDate);
+                    LocalDate appointmentDate = LocalDate.from(temporal);
+
                     String userInputTime = (String) selectTimeSpinner.getValue();
                     int userInputNumOfHr = (int) numOfHrSpinner.getValue();
 
+                    // get the start time and duration as strings
+                    String startTimeString = selectTimeSpinner.getValue().toString();
+                    String durationString = numOfHrSpinner.getValue().toString();
 
-                    //show the user input in the text area
-                    String userInput = "Doctor: " + userInputDoctor + "" + "Date: " + userInputDate + "" + "Time: " + userInputTime + "" + "Num of Hr: " + userInputNumOfHr;
-                    textArea.setText(userInput);
+                    // parse the start time and duration strings to create LocalTime objects
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
+                    LocalTime startTime = LocalTime.parse(startTimeString, formatter);
+                    LocalTime endTime = startTime.plusHours(Integer.parseInt(durationString));
 
+                    //Check whether the doctor is available considering the appointment date, start time and duration
+                    boolean doctorAvailability = doctor.checkAvailability(appointmentDate, startTime, endTime);
+                    System.out.println(doctorAvailability);
+                    if(doctorAvailability){
+                        selectDoctorFrame.dispose();
+                        addPatientDetails(selectedDoctor, appointmentDate, startTime, endTime,Integer.parseInt(durationString));
+                    }else {
+
+                        //check other doctors availability
+                        boolean otherDoctorAvailability = false;
+                        for (Map.Entry<Integer, Doctor> entry : doctorList.getDoctorList().entrySet()) {
+                            if (entry.getKey() != Integer.parseInt(selectedDoctor)) {
+                                otherDoctorAvailability = entry.getValue().checkAvailability(appointmentDate, startTime, endTime);
+                                if (otherDoctorAvailability) {
+                                    JOptionPane.showMessageDialog(null, "Selected doctor not available. Assigned to another doctor.", "Time slot not available.", JOptionPane.INFORMATION_MESSAGE);
+                                    selectDoctorFrame.dispose();
+                                    addPatientDetails(String.valueOf(entry.getKey()), appointmentDate, startTime, endTime,Integer.parseInt(durationString));
+                                    break;
+                                }
+                            }
+                        }
+                        if (!otherDoctorAvailability) {
+                            JOptionPane.showMessageDialog(null, "No doctor is available at the selected time.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
                 }
             }
         });
-        textArea.setBounds(275, 600, 250, 100);
-        selectDoctorFrame.add(textArea);
+    }
+
+    public static void addPatientDetails(String selectedDoctorMLicense,LocalDate appointmentDate, LocalTime startTime, LocalTime endTime,int consultDuration) {
+        JFrame addPatientFrame = new JFrame("Add Patient Details");
+        addPatientFrame.setSize(600, 800);
+        addPatientFrame.setResizable(false);
+        addPatientFrame.setLayout(null);
+        addPatientFrame.setLocationRelativeTo(null);
+        addPatientFrame.setVisible(true);
+        addPatientFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //disable the close button
+
+        //add label for enter patient details
+        JLabel enterPatientDetailsLabel= new JLabel("Enter Patient Details");
+        enterPatientDetailsLabel.setBounds(125, 40, 400, 50);
+        enterPatientDetailsLabel.setFont(new Font("Montserrat", Font.BOLD, 30));
+        enterPatientDetailsLabel.setForeground(new Color(0x7BB7C8));
+        addPatientFrame.add(enterPatientDetailsLabel);
+
+
+        //add label for patient name
+        JLabel patientNameLabel = new JLabel("Patient Name");
+        patientNameLabel.setBounds(165, 100, 250, 50);
+        patientNameLabel.setFont(new Font("Montserrat", Font.BOLD, 12));
+        addPatientFrame.add(patientNameLabel);
+
+        //add text field for patient name
+        JTextField patientNameTextField = new JTextField();
+        patientNameTextField.setBounds(165, 140, 250, 30);
+        addPatientFrame.add(patientNameTextField);
+
+        //add label for patient surname
+        JLabel patientSurnameLabel = new JLabel("Patient Surname");
+        patientSurnameLabel.setBounds(165, 200, 250, 50);
+        patientSurnameLabel.setFont(new Font("Montserrat", Font.BOLD, 12));
+        patientSurnameLabel.setForeground(new Color(0x000000));
+        addPatientFrame.add(patientSurnameLabel);
+
+        //add text field for patient surname
+        JTextField patientSurnameTextField = new JTextField();
+        patientSurnameTextField.setBounds(165, 240, 250, 30);
+        addPatientFrame.add(patientSurnameTextField);
+
+        //add label for patient birthdate
+        JLabel patientBirthDateLabel = new JLabel("Patient Birth Date");
+        patientBirthDateLabel.setBounds(165, 300, 250, 50);
+        patientBirthDateLabel.setFont(new Font("Montserrat", Font.BOLD, 12));
+        patientBirthDateLabel.setForeground(new Color(0x000000));
+        addPatientFrame.add(patientBirthDateLabel);
+
+        // Create a date picker
+        UtilDateModel model = new UtilDateModel();
+        Properties p = new Properties();
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+        JDatePickerImpl dateOfBirthPicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+
+        dateOfBirthPicker.setBounds(165, 340, 250, 30);
+        addPatientFrame.add(dateOfBirthPicker);
+
+        //add label for patient phone number
+        JLabel patientPhoneLabel = new JLabel("Patient Phone Number");
+        patientPhoneLabel.setBounds(165, 400, 250, 50);
+        patientPhoneLabel.setFont(new Font("Montserrat", Font.BOLD, 12));
+        patientPhoneLabel.setForeground(new Color(0x000000));
+        addPatientFrame.add(patientPhoneLabel);
+
+        //add text field for patient phone number
+        JTextField patientPhoneTextField = new JTextField();
+        patientPhoneTextField.setBounds(165, 440, 250, 30);
+        addPatientFrame.add(patientPhoneTextField);
+
+        //get users nic lable
+        JLabel patientNicLabel = new JLabel("Patient NIC");
+        patientNicLabel.setBounds(165, 500, 250, 50);
+        patientNicLabel.setFont(new Font("Montserrat", Font.BOLD, 12));
+        patientNicLabel.setForeground(new Color(0x000000));
+        addPatientFrame.add(patientNicLabel);
+
+        //get users nic text field as string
+        JTextField patientNicTextField = new JTextField();
+        patientNicTextField.setBounds(165, 540, 250, 30);
+        addPatientFrame.add(patientNicTextField);
+
+        //add button for submit
+        MyButton submitButton = new MyButton("Submit");
+        submitButton.setBounds(165, 630, 250, 50);
+        addPatientFrame.add(submitButton);
+
+        //add action listener for submit button
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //check if the user input is valid
+                if (patientNameTextField.getText().equals("") || patientSurnameTextField.getText().equals("") || dateOfBirthPicker.getJFormattedTextField().getText().equals("") || patientPhoneTextField.getText().equals("") || patientNicTextField.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Please enter all the details.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Get the selected date from the date picker
+                    UtilDateModel model = (UtilDateModel) dateOfBirthPicker.getModel();
+                    Date selectedDate = model.getValue();
+                    System.out.println("Selected date: " + selectedDate);
+
+                    // Convert the selected date to the LocalDate format (YYYY-MM-DD)
+                    LocalDate localDate = selectedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    System.out.println("Converted date: " + localDate);
+                    String userInputPatientName = patientNameTextField.getText();
+                    String userInputPatientSurname = patientSurnameTextField.getText();
+                    LocalDate userInputPatientBirthDate = localDate;
+                    int userInputPatientPhone = Integer.parseInt(patientPhoneTextField.getText());
+                    String userInputPatientNic = patientNicTextField.getText();
+                    int cost = 0;
+
+                    Patient patient = new Patient(userInputPatientName, userInputPatientSurname, userInputPatientBirthDate, userInputPatientPhone, userInputPatientNic); //create a new patient object using collected details
+                    Consultation consultation = new Consultation(appointmentDate,startTime,endTime,cost,patient); //create a new consultation object using collected details
+
+                    //Check whether patient is already registered and decide cost
+                    if (pastPatients.containsKey(userInputPatientNic)) {
+                        consultation.setCost(25*consultDuration);
+                    } else {
+                        consultation.setCost(15*consultDuration);
+                        pastPatients.put(userInputPatientNic,patient);
+                    }
+
+
+                    DoctorList doctorList = manager.getDoctorList();
+
+
+                    //check doctor using key and add consultation to the doctor
+                    for (HashMap.Entry<Integer, Doctor> entry : doctorList.getDoctorList().entrySet()) {
+                        if (entry.getKey() == Integer.parseInt(selectedDoctorMLicense)) {
+                            entry.getValue().addConsultation(consultation);
+                            consultation.setAssignedDoctor(entry.getValue());
+                            System.out.println(entry.getValue().toString());
+                        }
+                    }
+
+
+
+                    //show the user input in the text area
+                    String userInput = "Patient Name: " + userInputPatientName + "" + "Patient Surname: " + userInputPatientSurname + "" + "Patient Birth Date: " + userInputPatientBirthDate.toString() + "" + "Patient Phone: " + userInputPatientPhone + "" + "Patient NIC: " + userInputPatientNic;
+                    JOptionPane.showMessageDialog(null, userInput, "User Input", JOptionPane.INFORMATION_MESSAGE);
+
+                    addPatientFrame.dispose();
+                    showConsultationDetails(consultation);
+                }
+            }
+        });
+
+    }
+
+    public static void showConsultationDetails(Consultation consultation){
+
+        JFrame consultationDetailsFrame = new JFrame("Appointment Details");
+        consultationDetailsFrame.setSize(500, 740);
+        consultationDetailsFrame.setLayout(null);
+        consultationDetailsFrame.setVisible(true);
+        consultationDetailsFrame.setResizable(false);
+        consultationDetailsFrame.setLocationRelativeTo(null);
+        consultationDetailsFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        //add label for appointment details
+        JLabel appointmentDetailsLabel = new JLabel("Appointment Details");
+        appointmentDetailsLabel.setBounds(100, 50, 300, 50);
+        appointmentDetailsLabel.setFont(new Font("Montserrat", Font.BOLD, 25));
+        appointmentDetailsLabel.setForeground(new Color(0x7BB7C8));
+        consultationDetailsFrame.add(appointmentDetailsLabel);
+
+
+        //Show assigned doctor details
+        JLabel assignedDoctorLabel = new JLabel("Assigned Doctor");
+        assignedDoctorLabel.setBounds(125, 95, 250, 50);
+        assignedDoctorLabel.setFont(new Font("Montserrat", Font.BOLD, 18));
+        consultationDetailsFrame.add(assignedDoctorLabel);
+
+        JTextArea assignedDoctorTextArea = new JTextArea();
+        assignedDoctorTextArea.setBounds(125, 135, 250, 70);
+        assignedDoctorTextArea.setEditable(false);
+        assignedDoctorTextArea.setBackground(new Color(0xeeeeee));
+
+        assignedDoctorTextArea.append(consultation.getAssignedDoctor().toString());
+        consultationDetailsFrame.add(assignedDoctorTextArea);
+
+
+        //Show assigned patient details
+        JLabel assignedPatientLabel = new JLabel("Assigned Patient");
+        assignedPatientLabel.setBounds(125, 205, 250, 50);
+        assignedPatientLabel.setFont(new Font("Montserrat", Font.BOLD, 18));
+        consultationDetailsFrame.add(assignedPatientLabel);
+
+        JTextArea assignedPatientTextArea = new JTextArea();
+        assignedPatientTextArea.setBounds(125, 245, 250, 70);
+        assignedPatientTextArea.setEditable(false);
+        assignedPatientTextArea.setBackground(new Color(0xeeeeee));
+
+        assignedPatientTextArea.append(consultation.getPatient().toString());
+        consultationDetailsFrame.add(assignedPatientTextArea);
+
+
+        //Show consultation details
+        JLabel consiltationDetailsLabel = new JLabel("Appointment Details");
+        consiltationDetailsLabel.setBounds(125, 325, 250, 50);
+        consiltationDetailsLabel.setFont(new Font("Montserrat", Font.BOLD, 18));
+        consultationDetailsFrame.add(consiltationDetailsLabel);
+
+        JTextArea appointmentDetailsTextArea = new JTextArea();
+        appointmentDetailsTextArea.setBounds(125, 365, 250, 80);
+        appointmentDetailsTextArea.setEditable(false);
+        appointmentDetailsTextArea.setBackground(new Color(0xeeeeee));
+
+        appointmentDetailsTextArea.append(consultation.toString());
+        consultationDetailsFrame.add(appointmentDetailsTextArea);
+
+        //add lable to add notes
+        JLabel addNotesLabel = new JLabel("Add Notes");
+        addNotesLabel.setBounds(125, 455, 250, 50);
+        addNotesLabel.setFont(new Font("Montserrat", Font.BOLD, 18));
+        consultationDetailsFrame.add(addNotesLabel);
+
+        //add text area to add notes
+        JTextArea addNotesTextArea = new JTextArea();
+        addNotesTextArea.setBounds(125, 500, 250, 50);
+        consultationDetailsFrame.add(addNotesTextArea);
+
+        // add button to submit notes
+        MyButton submitNotesButton = new MyButton("Book Consultation");
+        submitNotesButton.setBounds(125, 570, 250, 50);
+        consultationDetailsFrame.add(submitNotesButton);
+
+        submitNotesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String notes = addNotesTextArea.getText();
+                consultation.setAdditionalNote(notes);
+                JOptionPane.showMessageDialog(null, "Consultation Booked", "Success", JOptionPane.INFORMATION_MESSAGE);
+                consultationDetailsFrame.dispose();
+            }
+        });
+
+
     }
 }
 
@@ -424,7 +700,7 @@ public class GuiSkinConsultationHome {
 
 
 
-
+//Formatter class for the date picker
 class DateLabelFormatter extends JFormattedTextField.AbstractFormatter {
 
     private String datePattern = "yyyy-MM-dd";

@@ -1,17 +1,32 @@
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.UUID;
 
 public class Consultation implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private int consultationID;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+
+    private static int counter = 0;
+    private static int consultationID;
+    private LocalTime startTime;
+    private LocalTime endTime;
+
+    private LocalDate date;
     private int cost;
     private Patient patient;
 
-    public Consultation(int consultationID, LocalDateTime startTime, LocalDateTime endTime, int cost, Patient patient) {
-        this.consultationID = consultationID;
+    private String additionalNote;
+
+    private Doctor assignedDoctor;
+
+
+
+
+    public Consultation(LocalDate date, LocalTime startTime, LocalTime endTime, int cost, Patient patient) {
+        this.consultationID = ++counter;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.cost = cost;
@@ -26,19 +41,27 @@ public class Consultation implements Serializable {
         this.consultationID = consultationID;
     }
 
-    public LocalDateTime getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -56,5 +79,30 @@ public class Consultation implements Serializable {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public String getAdditionalNote() {
+        return additionalNote;
+    }
+
+    public void setAdditionalNote(String additionalNote) {
+        this.additionalNote = additionalNote;
+    }
+
+    public Doctor getAssignedDoctor() {
+        return assignedDoctor;
+    }
+
+    public void setAssignedDoctor(Doctor assignedDoctor) {
+        this.assignedDoctor = assignedDoctor;
+    }
+
+    @Override
+    public String toString() {
+        return "Consultation ID : " + consultationID +
+                "\nDate : " + date +
+                "\nStart Time : " + startTime +
+                "\nEnd Time : " + endTime +
+                "\nCost : $"+ cost;
     }
 }

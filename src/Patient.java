@@ -15,4 +15,11 @@ public class Patient extends Person implements Serializable {
         return patientID;
     }
 
+    @Override
+    public String toString() {
+        return "Name : " + getName() + " " + getSurname() +
+                "\nDOB : " + getDob() +
+                "\nMobile No : " + getMobileNum() +
+                "\nNIC : " + getNic();
+    }
 }
