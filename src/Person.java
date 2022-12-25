@@ -48,15 +48,8 @@ public class Person implements Serializable {
         return mobileNum;
     }
 
-    public void setMobileNum(int mobileNum) {
-        this.mobileNum = mobileNum;
-    }
-
     public String getNic() {
         return nic;
     }
 
-    public void setNic(String nic) {
-        this.nic = nic;
-    }
 }

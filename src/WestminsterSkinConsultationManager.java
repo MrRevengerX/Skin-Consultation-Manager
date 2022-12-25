@@ -1,4 +1,3 @@
-import javax.print.Doc;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -14,17 +13,18 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         Scanner input = new Scanner(System.in);
 
         WestminsterSkinConsultationManager manager = new WestminsterSkinConsultationManager();
+        GuiSkinConsultationHome gui = new GuiSkinConsultationHome();
 
         doctorList.addDoctor(12345, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 12345, "Dermatology"));
-        doctorList.addDoctor(23456, new Doctor("Jane", "Doe", LocalDate.of(1985, 5, 5), 234567890, "2345678901234", 232356, "Cardiology"));
+        doctorList.addDoctor(23456, new Doctor("Jane", "Doe", LocalDate.of(1985, 5, 5), 234567890, "2345678901234", 23456, "Cardiology"));
         doctorList.addDoctor(34567, new Doctor("Bob", "Smith", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 34567, "Pediatrics"));
-        doctorList.addDoctor(125145, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 12345, "Dermatology"));
-        doctorList.addDoctor(23424, new Doctor("Jane", "Doe", LocalDate.of(1985, 5, 5), 234567890, "2345678901234", 235556, "Cardiology"));
-        doctorList.addDoctor(34512, new Doctor("Bob", "Smith", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 325567, "Pediatrics"));
-        doctorList.addDoctor(12635, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 184345, "Dermatology"));
-        doctorList.addDoctor(234616, new Doctor("Jane", "Doe", LocalDate.of(1985, 5, 5), 234567890, "2345678901234", 27256, "Cardiology"));
-        doctorList.addDoctor(3456723, new Doctor("Bob", "Smith", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 37767, "Pediatrics"));
-        doctorList.addDoctor(1234566, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 113345, "Dermatology"));
+        doctorList.addDoctor(125145, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 125145, "Dermatology"));
+        doctorList.addDoctor(23424, new Doctor("Jane", "Doe", LocalDate.of(1985, 5, 5), 234567890, "2345678901234", 23424, "Cardiology"));
+        doctorList.addDoctor(34512, new Doctor("Bob", "Smith", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 34512, "Pediatrics"));
+        doctorList.addDoctor(12635, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 12635, "Dermatology"));
+        doctorList.addDoctor(234616, new Doctor("Jane", "Doe", LocalDate.of(1985, 5, 5), 234567890, "2345678901234", 234616, "Cardiology"));
+        doctorList.addDoctor(3456723, new Doctor("Bob", "Smith", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 3456723, "Pediatrics"));
+        doctorList.addDoctor(1234566, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 1234566, "Dermatology"));
 
         //Check whether the log file is already there and if it isn't create empty log file.
         File file = new File("log.txt");
@@ -59,7 +59,8 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
             System.out.println("2. Remove a doctor");
             System.out.println("3. Print doctors");
             System.out.println("4. Save doctors");
-            System.out.println("5. Quit\n");
+            System.out.println("5. Open GUI");
+            System.out.println("6. Quit\n");
 
             // need sum of two numbers
 
@@ -96,7 +97,12 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                     manager.saveDoctors();
                     break;
                 case 5:
+                    // Code for option 4
+                    gui.main(null);
+                    break;
+                case 6:
                     // Code for quitting the program
+                    gui.dispose();
                     return;
                 default:
                     // Code for invalid input
@@ -106,7 +112,9 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         }
     }
 
-
+    public DoctorList getDoctorList() {
+        return doctorList;
+    }
     @Override
     public void addDoctor() {
         Scanner scanner = new Scanner(System.in);
