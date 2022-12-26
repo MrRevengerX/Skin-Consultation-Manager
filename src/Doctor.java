@@ -48,6 +48,10 @@ public class Doctor extends Person implements Serializable {
         this.consultation.add(consultation);
     };
 
+    public ArrayList<Consultation> getConsultation() {
+        return consultation;
+    }
+
     public boolean checkAvailability(LocalDate appointmentDate, LocalTime startTime, LocalTime endTime) {
         for (Consultation consultation : this.consultation) {
             if (consultation.getDate().equals(appointmentDate)) {
@@ -63,5 +67,9 @@ public class Doctor extends Person implements Serializable {
             }
         }
         return true;
+    }
+
+    public void removeConsultation(Consultation consultation) {
+        this.consultation.remove(consultation);
     }
 }

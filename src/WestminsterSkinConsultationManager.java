@@ -98,11 +98,10 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                     break;
                 case 5:
                     // Code for option 4
-                    gui.main(null);
+                    gui.main(args);
                     break;
                 case 6:
                     // Code for quitting the program
-                    gui.dispose();
                     return;
                 default:
                     // Code for invalid input

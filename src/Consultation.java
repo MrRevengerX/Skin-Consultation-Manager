@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
@@ -8,8 +7,8 @@ public class Consultation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static int counter = 0;
-    private static int consultationID;
+    private String consultationID;
+
     private LocalTime startTime;
     private LocalTime endTime;
 
@@ -25,7 +24,7 @@ public class Consultation implements Serializable {
 
 
     public Consultation(LocalDate date, LocalTime startTime, LocalTime endTime, int cost, Patient patient) {
-        this.consultationID = ++counter;
+        this.consultationID = String.valueOf(UUID.randomUUID());
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -33,11 +32,11 @@ public class Consultation implements Serializable {
         this.patient = patient;
     }
 
-    public int getConsultationID() {
+    public String getConsultationID() {
         return consultationID;
     }
 
-    public void setConsultationID(int consultationID) {
+    public void setConsultationID(String consultationID) {
         this.consultationID = consultationID;
     }
 
