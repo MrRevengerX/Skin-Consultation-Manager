@@ -1,9 +1,7 @@
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.HashMap;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class WestminsterSkinConsultationManager implements SkinConsultationManager {
 
@@ -23,7 +21,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         doctorList.addDoctor(34512, new Doctor("Bob", "Smith", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 34512, "Pediatrics"));
         doctorList.addDoctor(12635, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 12635, "Dermatology"));
         doctorList.addDoctor(234616, new Doctor("Jane", "Doe", LocalDate.of(1985, 5, 5), 234567890, "2345678901234", 234616, "Cardiology"));
-        doctorList.addDoctor(3456723, new Doctor("Bob", "Smith", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 3456723, "Pediatrics"));
+        doctorList.addDoctor(3456723, new Doctor("Bob", "Araliya", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 3456723, "Pediatrics"));
         doctorList.addDoctor(1234566, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 1234566, "Dermatology"));
 
         //Check whether the log file is already there and if it isn't create empty log file.
@@ -235,10 +233,19 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         if (doctorList.getDoctorList().isEmpty()) {
             System.out.println("Doctor list is empty.");
         } else {
+            ArrayList<Doctor> doctorArrayList = new ArrayList<>(doctorList.getDoctorList().values());
+
+            Collections.sort(doctorArrayList, new Comparator<Doctor>() {
+                @Override
+                public int compare(Doctor d1, Doctor d2) {
+                    return d1.getSurname().compareTo(d2.getSurname());
+                }
+            });
+
             System.out.println("Doctor List");
             System.out.println("------------");
             System.out.printf("%-20s %-20s %-12s %-15s %-15s %-20s %-20s\n", "Name", "Surname", "DOB", "Mobile Number", "NIC", "Medical License", "Specialization");
-            for (Doctor doctor : doctorList.getDoctorList().values()) {
+            for (Doctor doctor : doctorArrayList) {
                 System.out.printf("%-20s %-20s %-12s %-15d %-15s %-20d %-20s\n", doctor.getName(), doctor.getSurname(), doctor.getDob(), doctor.getMobileNum(), doctor.getNic(), doctor.getmLicense(), doctor.getSpeciali());
             }
         }

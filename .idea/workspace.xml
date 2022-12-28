@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="783d4334-fd02-4958-8c91-b5ca48e687d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Consultation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Consultation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Doctor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GuiSkinConsultationHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GuiSkinConsultationHome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WestminsterSkinConsultationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WestminsterSkinConsultationManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +61,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.WestminsterSkinConsultationManager">
-    <configuration name="GuiSkinConsultationHome" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="GuiSkinConsultationHome" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GuiSkinConsultationHome" />
       <module name="WestminsterSkinConsultationManager" />
       <method v="2">
@@ -78,7 +78,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.WestminsterSkinConsultationManager" />
-        <item itemvalue="Application.GuiSkinConsultationHome" />
       </list>
     </recent_temporary>
   </component>
@@ -102,7 +101,9 @@
       <workItem from="1671967543367" duration="11665000" />
       <workItem from="1672002714564" duration="2213000" />
       <workItem from="1672005453545" duration="5272000" />
-      <workItem from="1672025314650" duration="11281000" />
+      <workItem from="1672025314650" duration="12654000" />
+      <workItem from="1672128801978" duration="3276000" />
+      <workItem from="1672236325085" duration="1113000" />
     </task>
     <servers />
   </component>

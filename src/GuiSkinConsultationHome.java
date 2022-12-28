@@ -30,6 +30,11 @@ public class GuiSkinConsultationHome {
 
     static JFrame selectDoctorFrame;
 
+    static MyButton doctorListButton;
+
+    static MyButton bookConsultationButton;
+
+    static MyButton viewConsultationsButton;
 
     static WestminsterSkinConsultationManager manager = new WestminsterSkinConsultationManager();
 
@@ -38,6 +43,10 @@ public class GuiSkinConsultationHome {
     static HashMap<String, Consultation> consultationList = new HashMap<>();
 
     static int count;
+
+
+
+
 
 
     public static void main(String[] args) {
@@ -64,7 +73,6 @@ public class GuiSkinConsultationHome {
         homeFrame.setLayout(null);
         homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         // Adding a background image
         JLabel background = new JLabel(new ImageIcon("background.png"));
         background.setBounds(0, 0, 1366, 768);
@@ -83,9 +91,9 @@ public class GuiSkinConsultationHome {
 
 
         //Creating buttons for home window
-        MyButton doctorListButton = new MyButton("Doctor List");
-        MyButton bookConsultationButton = new MyButton("Book Consultation");
-        MyButton viewConsultationsButton = new MyButton("View Consultations");
+        doctorListButton = new MyButton("Doctor List");
+        bookConsultationButton = new MyButton("Book Consultation");
+        viewConsultationsButton = new MyButton("View Consultations");
 
 
         doctorListButton.setBounds(925, 310, 230, 50);
@@ -107,7 +115,7 @@ public class GuiSkinConsultationHome {
             public void actionPerformed(ActionEvent e) {
                 // create the doctor list window
                 showDoctorsList();
-                homeFrame.dispose();
+                doctorListButton.setEnabled(false);
             }
         });
 
@@ -115,7 +123,7 @@ public class GuiSkinConsultationHome {
             @Override
             public void actionPerformed(ActionEvent e) {
                 bookConsultation();
-                homeFrame.dispose();
+                bookConsultationButton.setEnabled(false);
             }
         });
 
@@ -126,7 +134,7 @@ public class GuiSkinConsultationHome {
                     JOptionPane.showMessageDialog(homeFrame, "No consultations have been booked yet!");
                 } else {
                     viewConsultations();
-                    homeFrame.dispose();
+                    viewConsultationsButton.setEnabled(false);
                 }
             }
         });
@@ -214,7 +222,9 @@ public class GuiSkinConsultationHome {
         doctorListFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                homeFrame.setVisible(true);
+                //enable doctorlist button in homeFrame when the window is closed
+                doctorListButton.setEnabled(true);
+
             }
         });
     }
@@ -234,7 +244,7 @@ public class GuiSkinConsultationHome {
         selectDoctorFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                homeFrame.setVisible(true);
+                bookConsultationButton.setEnabled(true);
             }
         });
 
@@ -519,7 +529,7 @@ public class GuiSkinConsultationHome {
         patientBirthDateLabel.setForeground(new Color(0x000000));
         addPatientFrame.add(patientBirthDateLabel);
 
-        // Creating a date picker for patient birth date
+        // Creating a date picker for patient birthday
         UtilDateModel model = new UtilDateModel();
         Properties p = new Properties();
         p.put("text.today", "Today");
@@ -714,7 +724,7 @@ public class GuiSkinConsultationHome {
         viewConsultationsFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                homeFrame.setVisible(true);
+                viewConsultationsButton.setEnabled(true);
             }
         });
 
