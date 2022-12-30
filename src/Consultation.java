@@ -20,6 +20,9 @@ public class Consultation implements Serializable {
 
     private Doctor assignedDoctor;
 
+    private String image = null;
+
+
 
 
 
@@ -104,4 +107,14 @@ public class Consultation implements Serializable {
                 "\nEnd Time : " + endTime +
                 "\nCost : $"+ cost;
     }
+
+    public void setImagePath(String path) {
+        this.image = path;
+    }
+
+
+    public String getImage() {
+        return image;
+    }
+
 }

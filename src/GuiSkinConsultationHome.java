@@ -9,6 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -19,6 +24,7 @@ import java.util.*;
 import javax.swing.JButton;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -45,10 +51,6 @@ public class GuiSkinConsultationHome {
     static int count;
 
 
-
-
-
-
     public static void main(String[] args) {
 
         //Restore data from file
@@ -71,7 +73,6 @@ public class GuiSkinConsultationHome {
         homeFrame.setLocationRelativeTo(null);
         homeFrame.setResizable(false);
         homeFrame.setLayout(null);
-        homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Adding a background image
         JLabel background = new JLabel(new ImageIcon("background.png"));
@@ -139,11 +140,6 @@ public class GuiSkinConsultationHome {
             }
         });
     }
-
-    public void dispose() {
-        homeFrame.dispose();
-    }
-
 
     // Creating a custom button template
     public static class MyButton extends JButton {
@@ -694,9 +690,56 @@ public class GuiSkinConsultationHome {
         addNotesTextArea.setBounds(100, 500, 250, 50);
         consultationDetailsFrame.add(addNotesTextArea);
 
+        //Adding button to add image
+        MyButton addImage = new MyButton("Add Image");
+        addImage.setBounds(100, 560, 100, 30);
+        addImage.setFont(new Font("Montserrat", Font.BOLD, 8));
+        consultationDetailsFrame.add(addImage);
+
+
+        //Adding event listener to add image button
+        addImage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","gif","png");
+                fileChooser.addChoosableFileFilter(filter);
+                fileChooser.setMultiSelectionEnabled(false);
+                int result = fileChooser.showSaveDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    // Getting path of the selected file
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String filePath = selectedFile.getAbsolutePath();
+                    Path sourcePath = Path.of(filePath);
+
+                    // Copy the file to the image directory
+                    Path destinationPath = Path.of("images/"+consultation.getConsultationID()+".jpg");
+                    consultation.setImagePath("images/"+consultation.getConsultationID()+".jpg");
+
+                    try {
+                        Files.copy(sourcePath, destinationPath);
+                        JOptionPane.showMessageDialog(null, "Image added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (IOException ex) {
+                        try {
+                            Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                    }
+
+                }else if(result == JFileChooser.CANCEL_OPTION){
+                    JOptionPane.showMessageDialog(null, "No image selected.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        System.out.println("test "+ consultation.getImage());
+
+
         //Adding button to submit notes
         MyButton bookConsultation = new MyButton("Book Consultation");
-        bookConsultation.setBounds(100, 570, 250, 50);
+        bookConsultation.setBounds(100, 610, 250, 50);
         consultationDetailsFrame.add(bookConsultation);
 
         //Adding action listener to book consultation button
@@ -707,7 +750,7 @@ public class GuiSkinConsultationHome {
                 consultation.setAdditionalNote(notes);
                 JOptionPane.showMessageDialog(null, "Consultation Booked", "Success", JOptionPane.INFORMATION_MESSAGE);
                 consultationDetailsFrame.dispose();
-                homeFrame.setVisible(true);
+                bookConsultationButton.setEnabled(true);
             }
         });
 
@@ -781,6 +824,15 @@ public class GuiSkinConsultationHome {
                     JOptionPane.showMessageDialog(null, "Please select a consultation to delete", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String consultationID = consultationsTable.getValueAt(selectedRow, 0).toString();
+                    Consultation consultation = consultationList.get(consultationID);
+
+                    //Removing image from images folder
+                    try {
+                        Files.deleteIfExists(Path.of(consultation.getImage()));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+
                     consultationList.get(consultationID).getAssignedDoctor().removeConsultation(consultationList.get(consultationID));//Removing consultation from doctor's consultation list
                     consultationList.remove(consultationID);//Removing consultation from hashmap
                     model.removeRow(selectedRow);//Removing consultation from table
@@ -879,6 +931,40 @@ public class GuiSkinConsultationHome {
 
         consultationNotesTextArea.setText(consultation.getAdditionalNote());
         viewConsultationDetails.add(consultationNotesTextArea);
+
+        //Adding button to view image saved in consultation
+        MyButton viewImage = new MyButton("View Image");
+        viewImage.setBounds(105, 585, 250, 50);
+        viewConsultationDetails.add(viewImage);
+
+        //Remove view image button if there isn't any image saved in consultation
+        if (consultation.getImage() == null) {
+            viewImage.setVisible(false);
+        }
+        //Adding action listener to view image button
+        viewImage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewImage(consultation.getImage());
+            }
+        });
+    }
+
+    private static void viewImage(String image) {
+        JFrame viewImage = new JFrame("View Image");
+
+        JLabel imageLabel = new JLabel();
+        ImageIcon imageIcon = new ImageIcon(image);
+        imageLabel.setIcon(imageIcon);
+        viewImage.add(imageLabel);
+
+        viewImage.pack();
+        viewImage.setVisible(true);
+        viewImage.setLocationRelativeTo(null);
+        viewImage.setResizable(false);
+        viewImage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+
     }
 }
 

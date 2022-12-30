@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -25,29 +27,8 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         doctorList.addDoctor(1234566, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 1234566, "Dermatology"));
 
         //Check whether the log file is already there and if it isn't create empty log file.
-        File file = new File("log.txt");
 
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Error creating file: " + e.getMessage());
-            }
-        }else {
-            // Read the doctorList HashMap from the file
-            try {
-                FileInputStream fis = new FileInputStream(file);
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                doctorList.setDoctorList((HashMap<Integer, Doctor>) ois.readObject());
-                ois.close();
-                fis.close();
-            } catch (IOException e) {
-                System.out.println("Error reading doctor list: " + e.getMessage());
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
+        manager.loadSavedDetails();
 
             while (true) {
             // Print the menu
@@ -92,7 +73,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                     break;
                 case 4:
                     // Code for option 4
-                    manager.saveDoctors();
+                    manager.saveData();
                     break;
                 case 5:
                     // Code for option 4
@@ -252,7 +233,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
     }
 
     @Override
-    public void saveDoctors() {
+    public void saveData() {
         Scanner scanner = new Scanner(System.in);
 
         File file = new File("log.txt");
@@ -285,4 +266,31 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         }
         }
     }
+
+    @Override
+    public void loadSavedDetails(){
+        File file = new File("log.txt");
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        }else {
+            // Read the doctorList HashMap from the file
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                doctorList.setDoctorList((HashMap<Integer, Doctor>) ois.readObject());
+                ois.close();
+                fis.close();
+            } catch (IOException e) {
+                System.out.println("Error reading doctor list: " + e.getMessage());
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
 }
