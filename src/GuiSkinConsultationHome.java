@@ -10,9 +10,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -703,7 +706,7 @@ public class GuiSkinConsultationHome {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","gif","png");
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "png","gif","jpg");
                 fileChooser.addChoosableFileFilter(filter);
                 fileChooser.setMultiSelectionEnabled(false);
                 int result = fileChooser.showSaveDialog(null);
@@ -714,11 +717,13 @@ public class GuiSkinConsultationHome {
                     Path sourcePath = Path.of(filePath);
 
                     // Copy the file to the image directory
-                    Path destinationPath = Path.of("images/"+consultation.getConsultationID()+".jpg");
-                    consultation.setImagePath("images/"+consultation.getConsultationID()+".jpg");
+                    Path destinationPath = Path.of("images/"+consultation.getConsultationID()+".png");
+                    consultation.setImagePath("images/"+consultation.getConsultationID()+".png");
 
                     try {
                         Files.copy(sourcePath, destinationPath);
+                        encryptImage("images/"+consultation.getConsultationID()+".png");
+
                         JOptionPane.showMessageDialog(null, "Image added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                     } catch (IOException ex) {
                         try {
@@ -733,9 +738,6 @@ public class GuiSkinConsultationHome {
                 }
             }
         });
-
-        System.out.println("test "+ consultation.getImage());
-
 
         //Adding button to submit notes
         MyButton bookConsultation = new MyButton("Book Consultation");
@@ -951,6 +953,8 @@ public class GuiSkinConsultationHome {
     }
 
     private static void viewImage(String image) {
+        decryptImage(image);
+
         JFrame viewImage = new JFrame("View Image");
 
         JLabel imageLabel = new JLabel();
@@ -964,6 +968,66 @@ public class GuiSkinConsultationHome {
         viewImage.setResizable(false);
         viewImage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        viewImage.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                encryptImage(image);
+            }
+        });
+
+
+    }
+
+    public static void encryptImage(String imagePath){
+        try{
+            int key = 1234;
+            FileInputStream fis = new FileInputStream(imagePath);
+
+            byte data[] = new byte[fis.available()];
+
+            fis.read(data);
+            int i = 0;
+
+            for (byte b : data) {
+                data[i] = (byte)(b ^ key);
+                i++;
+            }
+
+            FileOutputStream fos = new FileOutputStream(imagePath);
+            fos.write(data);
+            // Closing file
+            fos.close();
+            fis.close();
+        }
+        catch(Exception e){
+            System.out.println("Error while encrypting: " + e.toString());
+        }
+
+    }
+
+    public static void decryptImage(String imagePath) {
+        try{
+            int key = 1234;
+            FileInputStream fis = new FileInputStream(imagePath);
+
+            byte data[] = new byte[fis.available()];
+
+            fis.read(data);
+            int i = 0;
+
+            for (byte b : data) {
+                data[i] = (byte)(b ^ key);
+                i++;
+            }
+
+            FileOutputStream fos = new FileOutputStream(imagePath);
+            fos.write(data);
+
+            fos.close();
+            fis.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 }
