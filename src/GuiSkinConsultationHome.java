@@ -221,7 +221,7 @@ public class GuiSkinConsultationHome {
         doctorListFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                //enable doctorlist button in homeFrame when the window is closed
+                //Enable doctor list button in homeFrame when the window is closed
                 doctorListButton.setEnabled(true);
 
             }
@@ -540,6 +540,20 @@ public class GuiSkinConsultationHome {
         dateOfBirthPicker.setBounds(165, 340, 250, 30);
         addPatientFrame.add(dateOfBirthPicker);
 
+        dateOfBirthPicker.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Date selectedDate = (Date) dateOfBirthPicker.getModel().getValue();
+                if (selectedDate != null) {
+                    LocalDate birthDate = selectedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    if (birthDate.isAfter(LocalDate.now())) {
+                        JOptionPane.showMessageDialog(null, "Please enter a valid birth date.", "Error", JOptionPane.ERROR_MESSAGE);
+                        dateOfBirthPicker.getJFormattedTextField().setText("");
+                    }
+                }
+            }
+        });
+
         //Adding label for patient phone number
         JLabel patientPhoneLabel = new JLabel("Patient Phone Number");
         patientPhoneLabel.setBounds(165, 400, 250, 50);
@@ -853,6 +867,7 @@ public class GuiSkinConsultationHome {
                 }else{
                     String consultationID = consultationsTable.getValueAt(selectedRow, 0).toString();
                     Consultation consultation = consultationList.get(consultationID);
+                    viewConsultationsFrame.dispose();
                     viewConsultationDetails(consultation);
                 }
             }
@@ -860,6 +875,7 @@ public class GuiSkinConsultationHome {
     }
 
     public static void viewConsultationDetails(Consultation consultation){
+
         JFrame viewConsultationDetails = new JFrame("View Consultation Details");
         viewConsultationDetails.setSize(500, 740);
         viewConsultationDetails.setLayout(null);
@@ -867,6 +883,14 @@ public class GuiSkinConsultationHome {
         viewConsultationDetails.setResizable(false);
         viewConsultationDetails.setLocationRelativeTo(null);
         viewConsultationDetails.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+
+        viewConsultationDetails.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                viewConsultations();
+            }
+        });
 
         //Adding label for appointment details
         JLabel consultationDetailsLabel = new JLabel("Consultation Details");
