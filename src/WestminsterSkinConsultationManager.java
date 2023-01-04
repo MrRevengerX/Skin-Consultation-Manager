@@ -12,7 +12,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         WestminsterSkinConsultationManager manager = new WestminsterSkinConsultationManager();
         GuiSkinConsultationHome gui = new GuiSkinConsultationHome();
 
-        //Check whether the log file is already there and if it isn't create empty log file.
+        //Check whether the log file is already there then retrieve data from it. If it isn't create empty log file.
         manager.loadSavedDetails();
 
             while (true) {
