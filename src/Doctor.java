@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Doctor extends Person implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     private int mLicense;
     private String speciali;
 

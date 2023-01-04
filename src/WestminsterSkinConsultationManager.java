@@ -23,7 +23,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
             System.out.println("1. Add a doctor");
             System.out.println("2. Remove a doctor");
             System.out.println("3. Print doctors");
-            System.out.println("4. Save doctors");
+            System.out.println("4. Save data");
             System.out.println("5. Open GUI");
             System.out.println("6. Quit\n");
 

@@ -5,8 +5,6 @@ import java.util.UUID;
 
 public class Consultation implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     private String consultationID;
 
     private LocalTime startTime;
