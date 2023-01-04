@@ -5,7 +5,6 @@ import java.util.*;
 
 public class WestminsterSkinConsultationManager implements SkinConsultationManager {
 
-
     public static DoctorList doctorList = new DoctorList();
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -45,9 +44,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
             // Use a switch statement to execute the appropriate code for the user's choice
             switch (choice) {
                 case 1:
-                    System.out.println("1 selected");
                     manager.addDoctor();
-                    System.out.println(doctorList.toString());
                     break;
                 case 2:
                     // Code for option 2
@@ -83,8 +80,11 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
     public void addDoctor() {
         Scanner scanner = new Scanner(System.in);
         if (doctorList.getDoctorList().size() != 10){
+
+            System.out.println("\nEnter doctor details\n");
+
             // get name from user
-            System.out.print("Enter name: ");
+            System.out.print("Enter firstname: ");
             String name = scanner.nextLine();
 
             // get surname from user
@@ -171,7 +171,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                 int medicalLicenseNumber = scanner.nextInt();
                 Doctor doctor = doctorList.getDoctorList().get(medicalLicenseNumber);
                 if (doctor != null) {
-                    System.out.println("\nDoctor Details:");
+                    System.out.println("\nSelected Doctor's Details:");
                     System.out.println("---------------------");
                     System.out.println("Medical License : " + doctor.getmLicense());
                     System.out.println("Name: " + doctor.getName());
@@ -180,7 +180,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                     System.out.println("Mobile Number: " + doctor.getMobileNum());
                     System.out.println("NIC: " + doctor.getNic());
                     System.out.println("Specialization: " + doctor.getSpeciali());
-                    System.out.print("ARE YOU SURE YOU WANT TO DELETE THIS DOCTOR? (Y/N) ");
+                    System.out.print("\nARE YOU SURE YOU WANT TO DELETE THIS DOCTOR? (Y/N) ");
                     String confirm = scanner.next();
                     if (confirm.equalsIgnoreCase("Y")) {
                         doctorList.removeDoctor(medicalLicenseNumber);
@@ -271,8 +271,9 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                 doctorList.setDoctorList((HashMap<Integer, Doctor>) ois.readObject());
                 ois.close();
                 fis.close();
+                System.out.println("Saved data has been loaded.");
             } catch (IOException e) {
-                System.out.println("Error reading doctor list: " + e.getMessage());
+                System.out.println("No saved data has been found.");
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
