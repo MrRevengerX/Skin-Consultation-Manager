@@ -1,6 +1,4 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -15,19 +13,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         WestminsterSkinConsultationManager manager = new WestminsterSkinConsultationManager();
         GuiSkinConsultationHome gui = new GuiSkinConsultationHome();
 
-        doctorList.addDoctor(12345, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 12345, "Dermatology"));
-        doctorList.addDoctor(23456, new Doctor("Jane", "Doe", LocalDate.of(1985, 5, 5), 234567890, "2345678901234", 23456, "Cardiology"));
-        doctorList.addDoctor(34567, new Doctor("Bob", "Smith", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 34567, "Pediatrics"));
-        doctorList.addDoctor(125145, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 125145, "Dermatology"));
-        doctorList.addDoctor(23424, new Doctor("Jane", "Doe", LocalDate.of(1985, 5, 5), 234567890, "2345678901234", 23424, "Cardiology"));
-        doctorList.addDoctor(34512, new Doctor("Bob", "Smith", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 34512, "Pediatrics"));
-        doctorList.addDoctor(12635, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 12635, "Dermatology"));
-        doctorList.addDoctor(234616, new Doctor("Jane", "Doe", LocalDate.of(1985, 5, 5), 234567890, "2345678901234", 234616, "Cardiology"));
-        doctorList.addDoctor(3456723, new Doctor("Bob", "Araliya", LocalDate.of(1970, 10, 10), 345678901, "3456789012345", 3456723, "Pediatrics"));
-        doctorList.addDoctor(1234566, new Doctor("John", "Doe", LocalDate.of(1980, 1, 1), 123456789, "1234567890123", 1234566, "Dermatology"));
-
         //Check whether the log file is already there and if it isn't create empty log file.
-
         manager.loadSavedDetails();
 
             while (true) {
@@ -187,17 +173,17 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                 if (doctor != null) {
                     System.out.println("\nDoctor Details:");
                     System.out.println("---------------------");
-                    System.out.println("Medical License :\t" + doctor.getmLicense());
-                    System.out.println("Name:\t" + doctor.getName());
-                    System.out.println("Surname:\t" + doctor.getSurname());
-                    System.out.println("Date of Birth:\t" + doctor.getDob());
-                    System.out.println("Mobile Number:\t" + doctor.getMobileNum());
-                    System.out.println("NIC:\t" + doctor.getNic());
-                    System.out.println("Specialization:\t" + doctor.getSpeciali());
+                    System.out.println("Medical License : " + doctor.getmLicense());
+                    System.out.println("Name: " + doctor.getName());
+                    System.out.println("Surname: " + doctor.getSurname());
+                    System.out.println("Date of Birth: " + doctor.getDob());
+                    System.out.println("Mobile Number: " + doctor.getMobileNum());
+                    System.out.println("NIC: " + doctor.getNic());
+                    System.out.println("Specialization: " + doctor.getSpeciali());
                     System.out.print("ARE YOU SURE YOU WANT TO DELETE THIS DOCTOR? (Y/N) ");
                     String confirm = scanner.next();
                     if (confirm.equalsIgnoreCase("Y")) {
-                        doctorList.getDoctorList().remove(medicalLicenseNumber);
+                        doctorList.removeDoctor(medicalLicenseNumber);
                     }
                 } else {
                     System.out.println("Doctor with medical license number " + medicalLicenseNumber + " not found.");

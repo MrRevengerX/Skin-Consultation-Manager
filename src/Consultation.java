@@ -39,36 +39,16 @@ public class Consultation implements Serializable {
         return consultationID;
     }
 
-    public void setConsultationID(String consultationID) {
-        this.consultationID = consultationID;
-    }
-
     public LocalTime getStartTime() {
         return startTime;
-    }
-
-    public void setTime(LocalTime startTime) {
-        this.startTime = startTime;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public LocalTime getEndTime() {
         return endTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getCost() {
-        return cost;
     }
 
     public void setCost(int cost) {
@@ -77,10 +57,6 @@ public class Consultation implements Serializable {
 
     public Patient getPatient() {
         return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public String getAdditionalNote() {
@@ -108,7 +84,7 @@ public class Consultation implements Serializable {
                 "\nCost : $"+ cost;
     }
 
-    public void setImagePath(String path) {
+    public void setImage(String path) {
         this.image = path;
     }
 

@@ -2,7 +2,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Doctor extends Person implements Serializable {
 
@@ -23,16 +22,8 @@ public class Doctor extends Person implements Serializable {
         return mLicense;
     }
 
-    public void setmLicense(int mLicense) {
-        this.mLicense = mLicense;
-    }
-
     public String getSpeciali() {
         return speciali;
-    }
-
-    public void setSpeciali(String speciali) {
-        this.speciali = speciali;
     }
 
     @Override
@@ -48,7 +39,7 @@ public class Doctor extends Person implements Serializable {
         this.consultation.add(consultation);
     };
 
-    public ArrayList<Consultation> getConsultation() {
+    public ArrayList<Consultation> getConsultations() {
         return consultation;
     }
 

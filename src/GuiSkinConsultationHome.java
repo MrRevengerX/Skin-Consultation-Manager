@@ -15,7 +15,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +34,7 @@ import javax.swing.table.TableRowSorter;
 public class GuiSkinConsultationHome {
 
     static JFrame homeFrame;
+
     static JFrame doctorListFrame;
 
     static JFrame selectDoctorFrame;
@@ -58,7 +58,7 @@ public class GuiSkinConsultationHome {
 
         //Restore data from file
         for (Doctor doctor : manager.getDoctorList().getDoctorList().values()) {
-            for (Consultation consultation : doctor.getConsultation()) {
+            for (Consultation consultation : doctor.getConsultations()) {
                 consultationList.put(consultation.getConsultationID(), consultation);
                 pastPatients.put(consultation.getPatient().getPatientID(), consultation.getPatient());
             }
@@ -223,6 +223,7 @@ public class GuiSkinConsultationHome {
             public void windowClosing(WindowEvent e) {
                 //Enable doctor list button in homeFrame when the window is closed
                 doctorListButton.setEnabled(true);
+                homeFrame.toFront();
 
             }
         });
@@ -244,6 +245,7 @@ public class GuiSkinConsultationHome {
             @Override
             public void windowClosing(WindowEvent e) {
                 bookConsultationButton.setEnabled(true);
+                homeFrame.toFront();
             }
         });
 
@@ -488,7 +490,15 @@ public class GuiSkinConsultationHome {
         addPatientFrame.setLayout(null);
         addPatientFrame.setLocationRelativeTo(null);
         addPatientFrame.setVisible(true);
-        addPatientFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //disable the close button
+        addPatientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //disable the close button
+
+        addPatientFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                bookConsultationButton.setEnabled(true);
+                homeFrame.toFront();
+            }
+        });
 
         // Adding label for enter patient details
         JLabel enterPatientDetailsLabel= new JLabel("Enter Patient Details");
@@ -732,7 +742,7 @@ public class GuiSkinConsultationHome {
 
                     // Copy the file to the image directory
                     Path destinationPath = Path.of("images/"+consultation.getConsultationID()+".png");
-                    consultation.setImagePath("images/"+consultation.getConsultationID()+".png");
+                    consultation.setImage("images/"+consultation.getConsultationID()+".png");
 
                     try {
                         Files.copy(sourcePath, destinationPath);
@@ -767,6 +777,8 @@ public class GuiSkinConsultationHome {
                 JOptionPane.showMessageDialog(null, "Consultation Booked", "Success", JOptionPane.INFORMATION_MESSAGE);
                 consultationDetailsFrame.dispose();
                 bookConsultationButton.setEnabled(true);
+
+                homeFrame.toFront();
             }
         });
 
@@ -784,6 +796,7 @@ public class GuiSkinConsultationHome {
             @Override
             public void windowClosing(WindowEvent e) {
                 viewConsultationsButton.setEnabled(true);
+                homeFrame.toFront();
             }
         });
 
