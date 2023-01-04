@@ -130,7 +130,12 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                 System.out.print("Enter medical license number: ");
                 try {
                     medicalLicenseNumber = scanner.nextInt();
-                    medicalLicenseNumberValid = true;
+                    if (doctorList.getDoctorList().containsKey(medicalLicenseNumber)){
+                        System.out.println("Medical license number should be unique.");
+                    }else {
+                        medicalLicenseNumberValid = true;
+                    }
+
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid medical license number. Please enter a valid integer.");
                     scanner.nextLine(); // consume the invalid input
@@ -184,6 +189,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                     String confirm = scanner.next();
                     if (confirm.equalsIgnoreCase("Y")) {
                         doctorList.removeDoctor(medicalLicenseNumber);
+                        System.out.println("Doctor has been removed.\n");
                     }
                 } else {
                     System.out.println("Doctor with medical license number " + medicalLicenseNumber + " not found.");
@@ -229,6 +235,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(doctorList.getDoctorList());
+            System.out.println("Data saved.\n");
             oos.close();
             fos.close();
         } catch (IOException e) {
@@ -244,6 +251,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                 FileOutputStream fos = new FileOutputStream(file);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
                 oos.writeObject(doctorList.getDoctorList());
+                System.out.println("Data overwritten.\n");
                 oos.close();
                 fos.close();
             } catch (IOException e) {
