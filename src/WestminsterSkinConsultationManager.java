@@ -6,11 +6,13 @@ import java.util.*;
 public class WestminsterSkinConsultationManager implements SkinConsultationManager {
 
     public static DoctorList doctorList = new DoctorList();
+
+    static GuiSkinConsultationHome gui = new GuiSkinConsultationHome();
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
         WestminsterSkinConsultationManager manager = new WestminsterSkinConsultationManager();
-        GuiSkinConsultationHome gui = new GuiSkinConsultationHome();
+
 
         //Check whether the log file is already there then retrieve data from it. If it isn't create empty log file.
         manager.loadSavedDetails();
@@ -59,7 +61,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                     manager.saveData();
                     break;
                 case 5:
-                    // Code for option 4
+                    // Code for option 5
                     gui.main(args);
                     break;
                 case 6:

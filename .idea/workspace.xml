@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="783d4334-fd02-4958-8c91-b5ca48e687d0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GuiSkinConsultationHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GuiSkinConsultationHome.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/WestminsterSkinConsultationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WestminsterSkinConsultationManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -114,7 +116,13 @@
       <workItem from="1672840205119" duration="1979000" />
       <workItem from="1672847362819" duration="350000" />
       <workItem from="1672848025539" duration="30000" />
-      <workItem from="1672848067187" duration="3042000" />
+      <workItem from="1672848067187" duration="6659000" />
+      <workItem from="1672914300737" duration="3227000" />
+      <workItem from="1672919925869" duration="739000" />
+      <workItem from="1672921861912" duration="1000" />
+      <workItem from="1672922780685" duration="613000" />
+      <workItem from="1672996392849" duration="74000" />
+      <workItem from="1672999031393" duration="2566000" />
     </task>
     <servers />
   </component>

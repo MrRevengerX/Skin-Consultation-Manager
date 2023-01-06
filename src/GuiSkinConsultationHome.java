@@ -207,8 +207,8 @@ public class GuiSkinConsultationHome {
                 TableRowSorter<TableModel> sorter = new TableRowSorter<>(model);
 
                 // Sorting the table by the last name column
-                sorter.setSortable(3, true);
-                sorter.setSortKeys(List.of(new RowSorter.SortKey(3, SortOrder.ASCENDING)));
+                sorter.setSortable(2, true);
+                sorter.setSortKeys(List.of(new RowSorter.SortKey(2, SortOrder.ASCENDING)));
                 table.setRowSorter(sorter);
                 sortButton.setEnabled(false);
             }
@@ -857,10 +857,13 @@ public class GuiSkinConsultationHome {
 
                     //Removing image from images folder
                     try {
-                        Files.deleteIfExists(Path.of(consultation.getImage()));
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
+                        if (consultation.getImage()!=null){
+                            Files.deleteIfExists(Path.of(consultation.getImage()));
+                        }
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
                     }
+
 
                     consultationList.get(consultationID).getAssignedDoctor().removeConsultation(consultationList.get(consultationID));//Removing consultation from doctor's consultation list
                     consultationList.remove(consultationID);//Removing consultation from hashmap
@@ -1015,7 +1018,7 @@ public class GuiSkinConsultationHome {
 
     }
 
-    public static void encryptImage(String imagePath){
+    public static void encryptImage(String imagePath){ //
         try{
             int key = 1234;
             FileInputStream fis = new FileInputStream(imagePath);
@@ -1039,33 +1042,10 @@ public class GuiSkinConsultationHome {
         catch(Exception e){
             System.out.println("Error while encrypting: " + e.toString());
         }
-
     }
 
     public static void decryptImage(String imagePath) {
-        try{
-            int key = 1234;
-            FileInputStream fis = new FileInputStream(imagePath);
-
-            byte data[] = new byte[fis.available()];
-
-            fis.read(data);
-            int i = 0;
-
-            for (byte b : data) {
-                data[i] = (byte)(b ^ key);
-                i++;
-            }
-
-            FileOutputStream fos = new FileOutputStream(imagePath);
-            fos.write(data);
-
-            fos.close();
-            fis.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
+        encryptImage(imagePath);
     }
 }
 
