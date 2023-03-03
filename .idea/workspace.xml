@@ -1,25 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="783d4334-fd02-4958-8c91-b5ca48e687d0" name="Changes" comment="" />
+    <list default="true" id="783d4334-fd02-4958-8c91-b5ca48e687d0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GuiSkinConsultationHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GuiSkinConsultationHome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WestminsterSkinConsultationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WestminsterSkinConsultationManager.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2JGFYzdU3ZDUtRn4mTspbCCFr12" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/jdatepicker-1.3.4.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.WestminsterSkinConsultationManager">
+    <configuration name="GuiSkinConsultationHome" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GuiSkinConsultationHome" />
+      <module name="WestminsterSkinConsultationManager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WestminsterSkinConsultationManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="WestminsterSkinConsultationManager" />
+      <module name="WestminsterSkinConsultationManager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.WestminsterSkinConsultationManager" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -28,7 +89,57 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1671696567016</updated>
+      <workItem from="1671696568257" duration="5702000" />
+      <workItem from="1671708301377" duration="5105000" />
+      <workItem from="1671718018409" duration="8895000" />
+      <workItem from="1671728045282" duration="5579000" />
+      <workItem from="1671806138664" duration="51000" />
+      <workItem from="1671821443133" duration="204000" />
+      <workItem from="1671821658966" duration="110000" />
+      <workItem from="1671821790708" duration="8262000" />
+      <workItem from="1671880041495" duration="10356000" />
+      <workItem from="1671967543367" duration="11665000" />
+      <workItem from="1672002714564" duration="2213000" />
+      <workItem from="1672005453545" duration="5272000" />
+      <workItem from="1672025314650" duration="12654000" />
+      <workItem from="1672128801978" duration="3276000" />
+      <workItem from="1672236325085" duration="1113000" />
+      <workItem from="1672239028549" duration="277000" />
+      <workItem from="1672393720920" duration="6000" />
+      <workItem from="1672427980378" duration="3724000" />
+      <workItem from="1672431760978" duration="6375000" />
+      <workItem from="1672493862306" duration="46000" />
+      <workItem from="1672494623003" duration="615000" />
+      <workItem from="1672588903336" duration="1604000" />
+      <workItem from="1672654509969" duration="1491000" />
+      <workItem from="1672811384365" duration="77000" />
+      <workItem from="1672840205119" duration="1979000" />
+      <workItem from="1672847362819" duration="350000" />
+      <workItem from="1672848025539" duration="30000" />
+      <workItem from="1672848067187" duration="6659000" />
+      <workItem from="1672914300737" duration="3227000" />
+      <workItem from="1672919925869" duration="739000" />
+      <workItem from="1672921861912" duration="1000" />
+      <workItem from="1672922780685" duration="613000" />
+      <workItem from="1672996392849" duration="74000" />
+      <workItem from="1672999031393" duration="2566000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ClassCastException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
